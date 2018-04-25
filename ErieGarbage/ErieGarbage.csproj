@@ -102,47 +102,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administrator.cs">
-      <DependentUpon>ErieGarbageEntities.tt</DependentUpon>
+    <Compile Include="Migrations\201804250438599_ErieGarbage.cs" />
+    <Compile Include="Migrations\201804250438599_ErieGarbage.Designer.cs">
+      <DependentUpon>201804250438599_ErieGarbage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DatabaseModels\Administrator.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="BillingInformation.cs">
-      <DependentUpon>ErieGarbageEntities.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\DatabaseModels\BillingInformation.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Customer.cs">
-      <DependentUpon>ErieGarbageEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ErieGarbageEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ErieGarbageEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ErieGarbageEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ErieGarbageEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ErieGarbageEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ErieGarbageEntities.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Models\DatabaseModels\Customer.cs" />
+    <Compile Include="Models\DatabaseModels\ErieGarbage.cs" />
     <Compile Include="Global.asax.cs" />
-    <Compile Include="Invoice.cs">
-      <DependentUpon>ErieGarbageEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PickupTime.cs">
-      <DependentUpon>ErieGarbageEntities.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\DatabaseModels\Invoice.cs" />
+    <Compile Include="Models\Adminsitrator.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DatabaseModels\PickupTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SupportTicket.cs">
-      <DependentUpon>ErieGarbageEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SupportTicketMessage.cs">
-      <DependentUpon>ErieGarbageEntities.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\DatabaseModels\SupportTicket.cs" />
+    <Compile Include="Models\DatabaseModels\SupportTicketMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -154,16 +133,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\site.css" />
-    <Content Include="ErieGarbageEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ErieGarbageEntities.edmx</DependentUpon>
-      <LastGenOutput>ErieGarbageEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ErieGarbageEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ErieGarbageEntities.edmx</DependentUpon>
-      <LastGenOutput>ErieGarbageEntities.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -184,26 +153,21 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="ErieGarbageEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ErieGarbageEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ErieGarbageEntities.edmx.diagram">
-      <DependentUpon>ErieGarbageEntities.edmx</DependentUpon>
-    </Content>
+    <EmbeddedResource Include="Migrations\201804250438599_ErieGarbage.resx">
+      <DependentUpon>201804250438599_ErieGarbage.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v15.0\WebApplications\Microsoft.WebApplication.targets" />
