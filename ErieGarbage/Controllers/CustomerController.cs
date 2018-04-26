@@ -62,7 +62,7 @@ namespace ErieGarbage.Controllers
 				customer.UpdatePassword(form.Password);
 			}
 
-			return View(form);
+			return View(customer);
 		}
 
 		private bool IsValid(int id)
