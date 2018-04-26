@@ -1,10 +1,7 @@
-namespace Model.DatabaseModels.ErieGarbage
-{
-	using System;
-	using System.Data.Entity;
-	using System.ComponentModel.DataAnnotations.Schema;
-	using System.Linq;
+using System.Data.Entity;
 
+namespace ErieGarbage.Models.DatabaseModels
+{
 	public partial class ErieGarbage : DbContext
 	{
 		public ErieGarbage()
@@ -19,13 +16,13 @@ namespace Model.DatabaseModels.ErieGarbage
 		public virtual DbSet<PickupTime> PickupTimes { get; set; }
 		public virtual DbSet<SupportTicketMessage> SupportTicketMessages { get; set; }
 		public virtual DbSet<SupportTicket> SupportTickets { get; set; }
+		public virtual DbSet<Account> Accounts { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<BillingInformation>()
-				.HasMany(e => e.Customers)
-				.WithOptional(e => e.BillingInformation)
-				.HasForeignKey(e => e.BillingInfo);
+				.HasOptional(e => e.Customer)
+				.WithOptionalPrincipal();
 
 			modelBuilder.Entity<Customer>()
 				.HasMany(e => e.BillingInformations)
@@ -73,6 +70,10 @@ namespace Model.DatabaseModels.ErieGarbage
 				.HasMany(e => e.SupportTicketMessages)
 				.WithRequired(e => e.SupportTicket)
 				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Account>()
+				.HasOptional(e => e.Customer)
+				.WithOptionalPrincipal();
 		}
 	}
 }

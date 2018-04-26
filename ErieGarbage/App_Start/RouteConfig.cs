@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Security.Policy;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace ErieGarbage
@@ -10,9 +11,27 @@ namespace ErieGarbage
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
+				"CustomerNoAction",
+				"Customer/{id}",
+				new { controller = "Customer", action = "Index" }
+			);
+			
+			routes.MapRoute(
+				"Customer",
+				"Customer/{action}/{id}",
+				new { controller = "Customer", action = "Index"}
+			);
+			
+			routes.MapRoute(
+				"Home",
+				"{action}",
+				new {controller = "Home", action = "Index"}
+			);
+			
+			routes.MapRoute(
 				"Default",
 				"{controller}/{action}/{id}",
-				new {controller = "Home", action = "Index", id = UrlParameter.Optional}
+				new { controller = "Home", action = "Index", id = UrlParameter.Optional }
 			);
 		}
 	}

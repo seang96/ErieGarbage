@@ -1,11 +1,9 @@
-namespace Model.DatabaseModels.ErieGarbage
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace ErieGarbage.Models.DatabaseModels
+{
     public partial class Administrator
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -14,6 +12,8 @@ namespace Model.DatabaseModels.ErieGarbage
             SupportTicketMessages = new HashSet<SupportTicketMessage>();
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AdministratorID { get; set; }
 
         [Required]
@@ -21,8 +21,12 @@ namespace Model.DatabaseModels.ErieGarbage
         public string Username { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(128)]
         public string Password { get; set; }
+        
+        [Required]
+        [StringLength(24)]
+        public string Salt { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportTicketMessage> SupportTicketMessages { get; set; }

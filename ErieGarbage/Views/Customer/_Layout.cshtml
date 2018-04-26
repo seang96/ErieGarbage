@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model ErieGarbage.Models.Customer
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
@@ -27,7 +28,8 @@
         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
       </ul>
       <ul class="nav navbar-nav rightnavbar">
-        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+        <li>@Html.ActionLink("Profile", "Profile", "Customer", new { id = @Model.CustomerID}, null)</li>
+        <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
       </ul>
     </div>
   </div>

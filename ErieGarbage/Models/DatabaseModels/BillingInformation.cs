@@ -1,21 +1,14 @@
-namespace Model.DatabaseModels.ErieGarbage
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace ErieGarbage.Models.DatabaseModels
+{
     [Table("BillingInformation")]
     public partial class BillingInformation
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BillingInformation()
-        {
-            Customers = new HashSet<Customer>();
-        }
-
         [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int BillingInfoID { get; set; }
 
         public int? CustomerID { get; set; }
@@ -37,8 +30,5 @@ namespace Model.DatabaseModels.ErieGarbage
         public string zip { get; set; }
 
         public virtual Customer Customer { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

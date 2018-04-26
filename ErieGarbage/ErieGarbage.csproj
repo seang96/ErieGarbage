@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ErieGarbage</RootNamespace>
     <AssemblyName>ErieGarbage</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -51,6 +51,14 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Konscious.Security.Cryptography.Argon2, Version=1.1.1.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Konscious.Security.Cryptography.Argon2.1.1.1\lib\net451\Konscious.Security.Cryptography.Argon2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Konscious.Security.Cryptography.Blake2, Version=1.0.5.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Konscious.Security.Cryptography.Blake2.1.0.5\lib\net451\Konscious.Security.Cryptography.Blake2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -66,6 +74,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Numerics.Vectors.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -102,11 +114,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201804250438599_ErieGarbage.cs" />
-    <Compile Include="Migrations\201804250438599_ErieGarbage.Designer.cs">
-      <DependentUpon>201804250438599_ErieGarbage.cs</DependentUpon>
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Migrations\201804251726383_ErieGarbage.cs" />
+    <Compile Include="Migrations\201804251726383_ErieGarbage.Designer.cs">
+      <DependentUpon>201804251726383_ErieGarbage.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DatabaseModels\Account.cs" />
     <Compile Include="Models\DatabaseModels\Administrator.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -119,6 +133,9 @@
     <Compile Include="Models\Adminsitrator.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DatabaseModels\PickupTime.cs" />
+    <Compile Include="Models\LoginForm.cs" />
+    <Compile Include="Models\ProfileForm.cs" />
+    <Compile Include="Models\RegisterForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\DatabaseModels\SupportTicket.cs" />
     <Compile Include="Models\DatabaseModels\SupportTicketMessage.cs" />
@@ -148,9 +165,14 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Profile.cshtml" />
+    <Content Include="Views\Customer\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config">
@@ -165,8 +187,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804250438599_ErieGarbage.resx">
-      <DependentUpon>201804250438599_ErieGarbage.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804251726383_ErieGarbage.resx">
+      <DependentUpon>201804251726383_ErieGarbage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

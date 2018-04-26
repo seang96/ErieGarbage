@@ -1,0 +1,53 @@
+@using ErieGarbage.Models
+@model RegisterForm
+@{
+    ViewBag.Title = "Register";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+    {
+        @Html.TextBoxFor(m => m.account, new
+        {
+            placeholder = "Account ID",
+            autofocus = true,
+            type = "text",
+            required = true,
+        })
+        <br>
+        @Html.TextBoxFor(m => m.email, new
+        {
+            placeholder = "Email Address",
+            type = "text",
+            pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$",
+            title = "Invalid Email Address.",
+            required = true,
+        })
+        <br>
+        @Html.TextBoxFor(m => m.password, new
+        {
+            placeholder = "Password",
+            type = "password",
+            pattern = "^((?=.*\\d)(?=.*[A-Z])(?=.*(_|\\W))(?!.*\\s).{8,50})$",
+            title = "Password should contain at least one lowercase letter, uppercase letter, number, a special character, and be at least 8 characters long.",
+            required = true,
+        })
+
+        @Html.TextBoxFor(m => m.confirmpassword, new
+        {
+            placeholder = "Password",
+            type = "password",
+            pattern = "^((?=.*\\d)(?=.*[A-Z])(?=.*(_|\\W))(?!.*\\s).{8,50})$",
+            title = "Password should contain at least one lowercase letter, uppercase letter, number, a special character, and be at least 8 characters long.",
+            required = true,
+        })
+        <br>
+        if (!string.IsNullOrEmpty(Model.Error))
+        {
+            @(Model.Error)
+            @:<br/>
+        }
+        <input type="submit">
+    }
+

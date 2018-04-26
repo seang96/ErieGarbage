@@ -1,0 +1,46 @@
+﻿@model ErieGarbage.Models.Customer
+
+@{
+    ViewBag.Title = "Customer Portal";
+    Layout = "_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table style="width:100%; text-align: center">
+    <tr>
+        <th colspan="7">PickupTimes</th>
+    </tr>
+    <tr>
+        <th>Monday</th>
+        <th>Tuesday</th> 
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+    </tr>
+    @if (@Model.GetPickupTime() != null)
+    {
+        <tr>
+            <td>@Model.GetPickupTime().Monday</td>
+            <td>@Model.GetPickupTime().Tuesday</td>
+            <td>@Model.GetPickupTime().Wednesday</td>
+            <td>@Model.GetPickupTime().Thursday</td>
+            <td>@Model.GetPickupTime().Friday</td>
+            <td>@Model.GetPickupTime().Saturday</td>
+            <td>@Model.GetPickupTime().Sunday</td>
+        </tr>
+    } else
+    {
+        <tr>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+        </tr>
+    }
+</table>

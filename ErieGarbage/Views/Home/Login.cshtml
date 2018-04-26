@@ -1,0 +1,32 @@
+@using ErieGarbage.Models
+@model LoginForm
+@{
+    ViewBag.Title = "Login";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.email, new
+    {
+        placeholder = "Email Address",
+        type = "text",
+        required = true,
+    })
+    <br>
+    @Html.TextBoxFor(m => m.password, new
+    {
+        placeholder = "Password",
+        type = "password",
+        required = true,
+    })
+    <br>
+    if (!string.IsNullOrEmpty(Model.Error))
+    {
+        @(Model.Error)
+        @:<br/>
+    }
+    <input type="submit">
+}
+

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ErieGarbage.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<Model.DatabaseModels.ErieGarbage.ErieGarbage>
+    internal sealed class Configuration : DbMigrationsConfiguration<Models.DatabaseModels.ErieGarbage>
     {
         public Configuration()
         {

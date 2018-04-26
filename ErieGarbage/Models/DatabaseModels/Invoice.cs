@@ -1,13 +1,13 @@
-namespace Model.DatabaseModels.ErieGarbage
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace ErieGarbage.Models.DatabaseModels
+{
     public partial class Invoice
     {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int InvoiceID { get; set; }
 
         public int? CustomerID { get; set; }

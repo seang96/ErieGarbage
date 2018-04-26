@@ -1,11 +1,10 @@
-namespace Model.DatabaseModels.ErieGarbage
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace ErieGarbage.Models.DatabaseModels
+{
     public partial class SupportTicket
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -14,6 +13,8 @@ namespace Model.DatabaseModels.ErieGarbage
             SupportTicketMessages = new HashSet<SupportTicketMessage>();
         }
 
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int SupportTicketID { get; set; }
 
         public int? CustomerID { get; set; }

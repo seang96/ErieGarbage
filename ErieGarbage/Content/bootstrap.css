@@ -4331,7 +4331,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
-    float: none;
     width: auto;
     margin-top: 0;
     background-color: transparent;
@@ -4350,6 +4349,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-nav .open .dropdown-menu > li > a:focus {
     background-image: none;
   }
+  
+  .rightnavbar {
+    float: none;
+  }
 }
 @media (min-width: 768px) {
   .navbar-nav {
@@ -4362,6 +4365,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-nav > li > a {
     padding-top: 15px;
     padding-bottom: 15px;
+  }
+  
+  .rightnavbar {
+    float: right;
   }
 }
 .navbar-form {

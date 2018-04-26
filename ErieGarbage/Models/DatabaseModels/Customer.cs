@@ -1,11 +1,9 @@
-namespace Model.DatabaseModels.ErieGarbage
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace ErieGarbage.Models.DatabaseModels
+{
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -17,18 +15,23 @@ namespace Model.DatabaseModels.ErieGarbage
             SupportTickets = new HashSet<SupportTicket>();
         }
 
+        [Key]
         public int CustomerID { get; set; }
 
-        [Required]
-        public string AccountID { get; set; }
+        [Required] 
+        public int AccountID { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(128)]
         public string Password { get; set; }
+
+        [Required]
+        [StringLength(24)]
+        public string Salt { get; set; }
 
         public int? BillingInfo { get; set; }
 
@@ -66,5 +69,7 @@ namespace Model.DatabaseModels.ErieGarbage
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupportTicket> SupportTickets { get; set; }
+        
+        public virtual Account Account { get; set; }
     }
 }
