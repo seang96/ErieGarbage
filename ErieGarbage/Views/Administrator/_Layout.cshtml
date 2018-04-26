@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model ErieGarbage.Models.Administrator
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
@@ -23,12 +24,14 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("Administrator Portal", "Index", "Administrator")</li>
+        <li>@Html.ActionLink("Create Admin", "CreateAdmin", "Administrator", new {id = @Model.AdministratorID}, null)</li>
         <li>@Html.ActionLink("About", "About", "Home")</li>
         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
       </ul>
       <ul class="nav navbar-nav rightnavbar">
-        <li>@Html.ActionLink("Register", "Register", "Home")</li>
-        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+        <li>@Html.ActionLink("Profile", "Profile", "Administrator", new { id = @Model.AdministratorID}, null)</li>
+        <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
       </ul>
     </div>
   </div>

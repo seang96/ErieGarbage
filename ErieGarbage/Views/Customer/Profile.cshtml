@@ -67,7 +67,6 @@
         type = "password",
         pattern = "^((?=.*\\d)(?=.*[A-Z])(?=.*(_|\\W))(?!.*\\s).{8,50})$",
         title = "Password should contain at least one lowercase letter, uppercase letter, number, a special character, and be at least 8 characters long.",
-        required = true,
     })
 
     @Html.TextBoxFor(m => m.ProfileForm.ConfirmPassword, new
@@ -76,7 +75,6 @@
         type = "password",
         pattern = "^((?=.*\\d)(?=.*[A-Z])(?=.*(_|\\W))(?!.*\\s).{8,50})$",
         title = "Password should contain at least one lowercase letter, uppercase letter, number, a special character, and be at least 8 characters long.",
-        required = true,
     })
     <br>
     if (!string.IsNullOrEmpty(Model.ProfileForm.Error))

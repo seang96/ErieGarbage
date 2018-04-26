@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
+﻿using System.Web.Mvc;
 using System.Web.Security;
-using System.Web.UI.WebControls;
 using ErieGarbage.Models;
 
 namespace ErieGarbage.Controllers
@@ -40,20 +33,27 @@ namespace ErieGarbage.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Login(string email, string password)
+		public ActionResult Login(LoginForm form)
 		{
 			var customer = new Customer();
-			var login = customer.Login(email, password);
+			var login = customer.Login(form.email, form.password);
 			if (login)
 			{
 				FormsAuthentication.SetAuthCookie(customer.Email, false);
 				return RedirectToAction("Index", "Customer", new { id = customer.CustomerID });
 			}
 			
-			var administrator = new Adminsitrator();
-			login = administrator.Login(email, password);
+			var administrator = new Administrator();
+			login = administrator.Login(form.email, form.password);
 
-			return Content(login.ToString());
+			if (login)
+			{
+				FormsAuthentication.SetAuthCookie(administrator.Username, false);
+                return RedirectToAction("Index", "Administrator", new { id = administrator.AdministratorID});
+			}
+
+			form.Error = "Login attempt has failed.";
+			return View(form);
 		}
 
 		public ActionResult Logout()

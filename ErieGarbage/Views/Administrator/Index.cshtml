@@ -1,0 +1,27 @@
+﻿@model ErieGarbage.Models.Administrator
+
+@{
+    ViewBag.Title = "Administrator Portal";
+    Layout = "_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table style="width:100%; text-align: center;">
+    <tr>
+        <th colspan="7" style="text-align: center">Customers</th>
+    </tr>
+    <tr>
+        <th style="text-align: center;">AccountID</th>
+        <th style="text-align: center;">Email</th> 
+        <th style="text-align: center">Profile</th>
+    </tr>
+    @foreach (var customer in Model.GetCustomers())
+        {
+            <tr>
+                <td>@customer.AccountID</td>
+                <td>@customer.Email</td>
+                <td>@Html.ActionLink("Profile", "Profile", "Customer", new { id = @customer.CustomerID}, null)</td>
+            </tr> 
+        }
+</table>

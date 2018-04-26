@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -12,10 +13,10 @@ namespace ErieGarbage.Controllers
 	public class CustomerController : Controller
 	{
 	
-		private static Models.DatabaseModels.ErieGarbage ErieGarbage => new Models.DatabaseModels.ErieGarbage();
+		private Models.DatabaseModels.ErieGarbage ErieGarbage => new Models.DatabaseModels.ErieGarbage();
 		public ActionResult Index(int id)
 		{
-			if (!IsValid(id)) throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized));
+			if (!IsValid(id)) return new HttpUnauthorizedResult();
 			var customer = new Customer(id);
 			return View(customer);
 		}
@@ -23,7 +24,7 @@ namespace ErieGarbage.Controllers
 		[System.Web.Mvc.HttpGet]
 		public ActionResult Profile(int id)
 		{
-			if (!IsValid(id)) throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized));
+			if (!IsValid(id)) return new HttpUnauthorizedResult();
 			var customer = new Customer(id);
 			var form = new ProfileForm()
 			{
@@ -43,15 +44,32 @@ namespace ErieGarbage.Controllers
 		[System.Web.Mvc.HttpPost]
 		public ActionResult Profile(int id, Customer customer)
 		{
-			if (!IsValid(id)) throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized));
+			if (!IsValid(id)) return new HttpUnauthorizedResult();
 			var form = customer.ProfileForm;
-			customer.Email = form.Email;
+			customer = new Customer(id);
 			customer.FirstName = form.FirstName;
 			customer.MiddleName = form.MiddleName;
 			customer.LastName = form.LastName;
 			customer.PhoneNumber = form.PhoneNumber;
 			customer.Street = form.Street;
-			if (form.Suspended)
+			customer.UpdatePickupTime();
+			if (!string.Equals(customer.Email, form.Email))
+			{
+				var oldEmail = customer.Email;
+                customer.Email = form.Email;
+				
+				var cookieName = FormsAuthentication.FormsCookieName;
+				var authCookie = HttpContext.Request.Cookies[cookieName];
+			
+				var ticket = FormsAuthentication.Decrypt(authCookie.Value);
+				var userName = ticket.Name;
+				if (string.Equals(oldEmail, userName))
+				{
+                    FormsAuthentication.SignOut();
+                    FormsAuthentication.SetAuthCookie(customer.Email, false);
+				}
+			}
+			if (form.Suspended != null && (bool) form.Suspended)
 				if (!customer.SuspendAccount())
 				{
 					form.Error = "This action can only be done on the first of the month.";
@@ -61,6 +79,9 @@ namespace ErieGarbage.Controllers
 			{
 				customer.UpdatePassword(form.Password);
 			}
+
+			ErieGarbage.SaveChanges();
+			customer.ProfileForm = form;
 
 			return View(customer);
 		}
@@ -75,12 +96,12 @@ namespace ErieGarbage.Controllers
 			var userName = ticket.Name;
 			var customerQuery = (from customer in ErieGarbage.Customers
 				where string.Equals(customer.Email, userName ) && customer.CustomerID == id
-				select customer).First();
+				select customer).FirstOrDefault();
 			if (customerQuery != null)
 				return true;
 			var adminQuery = (from admin in ErieGarbage.Administrators
-				where string.Equals(admin.Username, userName ) && admin.AdministratorID == id
-				select admin).First();
+				where string.Equals(admin.Username, userName )
+				select admin).FirstOrDefault();
 			if (adminQuery != null)
 				return true;
 			return false;

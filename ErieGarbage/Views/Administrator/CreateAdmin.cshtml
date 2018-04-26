@@ -1,0 +1,43 @@
+﻿@model ErieGarbage.Models.Administrator
+
+@{
+    ViewBag.Title = "Create Admin";
+    Layout = "_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("CreateAdmin", "Administrator", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.RegisterForm.email, new
+    {
+        placeholder = "Username",
+        type = "text",
+        required = true,
+    })
+    <br>
+    @Html.TextBoxFor(m => m.RegisterForm.password, new
+    {
+        placeholder = "Password",
+        type = "password",
+        pattern = "^((?=.*\\d)(?=.*[A-Z])(?=.*(_|\\W))(?!.*\\s).{8,50})$",
+        title = "Password should contain at least one lowercase letter, uppercase letter, number, a special character, and be at least 8 characters long.",
+        required = true,
+    })
+
+    @Html.TextBoxFor(m => m.RegisterForm.confirmpassword, new
+    {
+        placeholder = "Password",
+        type = "password",
+        pattern = "^((?=.*\\d)(?=.*[A-Z])(?=.*(_|\\W))(?!.*\\s).{8,50})$",
+        title = "Password should contain at least one lowercase letter, uppercase letter, number, a special character, and be at least 8 characters long.",
+        required = true,
+    })
+    <br>
+    if (!string.IsNullOrEmpty(Model.RegisterForm.Error))
+    {
+        @(Model.RegisterForm.Error)
+        @:<br/>
+    }
+    <input type="submit">
+}

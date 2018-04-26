@@ -7,18 +7,18 @@
 
 <h2>@ViewBag.Title</h2>
 
-<table style="width:100%; text-align: center">
+<table style="width:100%; text-align: center;">
     <tr>
-        <th colspan="7">PickupTimes</th>
+        <th colspan="7" style="text-align: center">PickupTimes</th>
     </tr>
     <tr>
-        <th>Monday</th>
-        <th>Tuesday</th> 
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-        <th>Sunday</th>
+        <th style="text-align: center;">Monday</th>
+        <th style="text-align: center;">Tuesday</th> 
+        <th style="text-align: center">Wednesday</th>
+        <th style="text-align: center;">Thursday</th>
+        <th style="text-align: center;">Friday</th>
+        <th style="text-align: center;">Saturday</th>
+        <th style="text-align: center;">Sunday</th>
     </tr>
     @if (@Model.GetPickupTime() != null)
     {

@@ -114,6 +114,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Migrations\201804251726383_ErieGarbage.cs" />
     <Compile Include="Migrations\201804251726383_ErieGarbage.Designer.cs">
@@ -130,7 +131,7 @@
     <Compile Include="Models\DatabaseModels\ErieGarbage.cs" />
     <Compile Include="Global.asax.cs" />
     <Compile Include="Models\DatabaseModels\Invoice.cs" />
-    <Compile Include="Models\Adminsitrator.cs" />
+    <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DatabaseModels\PickupTime.cs" />
     <Compile Include="Models\LoginForm.cs" />
@@ -165,6 +166,10 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Views\Administrator\CreateAdmin.cshtml" />
+    <Content Include="Views\Administrator\Index.cshtml" />
+    <Content Include="Views\Administrator\Profile.cshtml" />
+    <Content Include="Views\Administrator\_Layout.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\Profile.cshtml" />
     <Content Include="Views\Customer\_Layout.cshtml" />

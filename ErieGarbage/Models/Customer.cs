@@ -14,12 +14,12 @@ namespace ErieGarbage.Models
 {
 	public class Customer
 	{
-		private static readonly DatabaseModels.ErieGarbage ErieGarbage = new DatabaseModels.ErieGarbage();
+		private readonly DatabaseModels.ErieGarbage ErieGarbage = new DatabaseModels.ErieGarbage();
 		private static readonly Regex PasswordValidation = new Regex("^((?=.*\\d)(?=.*[A-Z])(?=.*(_|\\W))(?!.*\\s).{8,50})$");
 		
 		private DatabaseModels.Customer _customer { get; set; }
 
-		public int CustomerID => _customer.CustomerID;
+		public int? CustomerID => _customer?.CustomerID;
 		
 		public string Email
 		{
@@ -91,8 +91,8 @@ namespace ErieGarbage.Models
 			}
 		}
 
-		public Account Account => _customer.Account;
-		public bool Suspended => _customer.Suspended;
+		public Account Account => _customer?.Account;
+		public bool? Suspended => _customer?.Suspended;
 		
 		public ProfileForm ProfileForm { get; set; }
 
@@ -128,6 +128,18 @@ namespace ErieGarbage.Models
 			return _customer?.PickupTime;
 		}
 
+		public void UpdatePickupTime()
+		{
+			var pickupTime = (from pickup in ErieGarbage.PickupTimes
+				where string.Equals(pickup.Street, Street)
+				select pickup).FirstOrDefault();
+			if (pickupTime == null) return;
+			
+			_customer.PickupTime = pickupTime;
+			_customer.PickupTimes = pickupTime.PickupTimesID;
+			pickupTime.Customers.Add(_customer);
+			ErieGarbage.SaveChanges();
+		}
 		public ICollection<SupportTicket> GetSupportTicket()
 		{
 			return _customer?.SupportTickets;
@@ -150,7 +162,6 @@ namespace ErieGarbage.Models
 
 		public bool UpdatePassword(string newPassword)
 		{
-			if (!_customer.Password.Equals(newPassword)) return false;
 			if (!PasswordValidation.IsMatch(newPassword)) return false;
 
 			var salt = Crypto.GenerateSalt();
@@ -209,6 +220,7 @@ namespace ErieGarbage.Models
 				return false;
 			}
 
+			var ErieGarbage = new DatabaseModels.ErieGarbage();
 			var oldCustomer = (from customer in ErieGarbage.Customers
 				where string.Equals(customer.Email, email)
 				select customer).FirstOrDefault();

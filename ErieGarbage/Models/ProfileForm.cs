@@ -11,7 +11,7 @@
 		public string FirstName { get; set; }
 		public string MiddleName { get; set; }
 		public string LastName { get; set; }
-		public bool Suspended { get; set; }
+		public bool? Suspended { get; set; }
 		public string Error { get; set; }
 	}
 }

@@ -11,6 +11,18 @@ namespace ErieGarbage
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
+				"AdministratorNoAction",
+				"Administrator/{id}",
+				new { controller = "Administrator", action = "Index" }
+			);
+			
+			routes.MapRoute(
+				"Administrator",
+				"Administrator/{action}/{id}",
+				new { controller = "Administrator", action = "Index"}
+			);
+			
+			routes.MapRoute(
 				"CustomerNoAction",
 				"Customer/{id}",
 				new { controller = "Customer", action = "Index" }

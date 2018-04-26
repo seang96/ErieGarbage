@@ -10,13 +10,31 @@ using Konscious.Security.Cryptography;
 
 namespace ErieGarbage.Models
 {
-	public class Adminsitrator
+	public class Administrator
 	{
-		private static readonly DatabaseModels.ErieGarbage ErieGarbage = new DatabaseModels.ErieGarbage();
+		private readonly DatabaseModels.ErieGarbage ErieGarbage = new DatabaseModels.ErieGarbage();
 		private static readonly Regex PasswordValidation = new Regex("^((?=.*\\d)(?=.*[A-Z])(?=.*(_|\\W))(?!.*\\s).{8,50})$");
-		private Administrator _Administrator { get; set; }
+		private DatabaseModels.Administrator _Administrator { get; set; }
+
+		public int? AdministratorID => _Administrator?.AdministratorID;
+		public string Username => _Administrator?.Username;
+
+		public ProfileForm ProfileForm  { get; set; }
+		public RegisterForm RegisterForm { get; set; }
 		
-		public string Username => _Administrator.Username;
+		public Administrator()
+		{
+		}
+
+		public Administrator(int id)
+		{
+			var firstAdministrator = (from administrator in ErieGarbage.Administrators
+				where administrator.AdministratorID == id
+				select administrator).FirstOrDefault();
+			if (firstAdministrator != null)
+				_Administrator = firstAdministrator;
+
+		}
 
 		public bool Login(string username, string password)
 		{
@@ -26,13 +44,14 @@ namespace ErieGarbage.Models
 			if (result == null) return false;
 			
 			_Administrator = result;
+			if (string.Equals(_Administrator.Username, "admin") && string.Equals(_Administrator.Password, password))
+				return true;
 			return string.Equals(_Administrator.Password, HashedPassword(password, _Administrator.Salt));
 		}
 	
 		public bool UpdatePassword(string newPassword)
 		{
 			if (_Administrator == null) return false;
-			if (!_Administrator.Password.Equals(newPassword)) return false;
 			if (!PasswordValidation.IsMatch(newPassword)) return false;
 
 			var salt = Crypto.GenerateSalt();
@@ -44,26 +63,26 @@ namespace ErieGarbage.Models
 
 		public IEnumerable<DatabaseModels.Customer> GetCustomers()
 		{
-			return ErieGarbage.Customers.AsEnumerable();
+			return new DatabaseModels.ErieGarbage().Customers.AsEnumerable();
 		}
 
 		public IEnumerable<DatabaseModels.Customer> GenerateReportActiveCustomers()
 		{
-			return (from customer in ErieGarbage.Customers
+			return (from customer in new DatabaseModels.ErieGarbage().Customers
 					where customer.Suspended
 					select customer).AsEnumerable();
 		}
 
 		public IEnumerable<DatabaseModels.Customer> GenerateReportPaymentsDue()
 		{
-			return (from invoice in ErieGarbage.Invoices
+			return (from invoice in new DatabaseModels.ErieGarbage().Invoices
 				where !invoice.Paid
 				select invoice.Customer).AsEnumerable();
 		}
 		
 		public IEnumerable<DatabaseModels.Customer> GenerateReportLatePayments()
 		{
-			return (from invoice in ErieGarbage.Invoices
+			return (from invoice in new DatabaseModels.ErieGarbage().Invoices
 				where !invoice.Paid && invoice.InvoiceGenerated <= DateTime.Now.AddMonths(-1)
 				select invoice.Customer).AsEnumerable();
 		}
@@ -79,8 +98,8 @@ namespace ErieGarbage.Models
 				where string.Equals(admin.Username, username)
 				select admin).FirstOrDefault();
 			if (oldAdmin != null) return false;
-			
-			var newAdmin = new Administrator
+
+			var newAdmin = new DatabaseModels.Administrator
 			{
 				Username = username,
 				Password = hashedPassword,
