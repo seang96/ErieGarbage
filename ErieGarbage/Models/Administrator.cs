@@ -52,6 +52,7 @@ namespace ErieGarbage.Models
 		public bool UpdatePassword(string newPassword)
 		{
 			if (_Administrator == null) return false;
+			if (string.IsNullOrEmpty(newPassword)) return false;
 			if (!PasswordValidation.IsMatch(newPassword)) return false;
 
 			var salt = Crypto.GenerateSalt();
