@@ -2,10 +2,10 @@
 {
 	public class RegisterForm
 	{
-		public string account { get; set; }
-		public string email { get; set; }
-		public string password { get; set; } 
-		public string confirmpassword { get; set; }
+		public string Account { get; set; }
+		public string Email { get; set; }
+		public string Password { get; set; } 
+		public string Confirmpassword { get; set; }
 		public string Error { get; set; }
 	}
 }

@@ -71,13 +71,13 @@ namespace ErieGarbage.Controllers
 		[HttpPost]
 		public ActionResult Register(RegisterForm form)
 		{
-			if (!string.Equals(form.password, form.confirmpassword))
+			if (!string.Equals(form.Password, form.Confirmpassword))
 			{
 				form.Error = "Passwords do not match.";
 				return View(form);
 			}
 
-			if (Customer.Register(form.account, form.email, form.password))
+			if (Customer.Register(form.Account, form.Email, form.Password))
 				return RedirectToAction("Login");
 			form.Error = "A user with the account number and or email address already exists.";
 			return View(form);

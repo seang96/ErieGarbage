@@ -9,14 +9,14 @@
 
 @using (Html.BeginForm("CreateAdmin", "Administrator", FormMethod.Post))
 {
-    @Html.TextBoxFor(m => m.RegisterForm.email, new
+    @Html.TextBoxFor(m => m.RegisterForm.Email, new
     {
         placeholder = "Username",
         type = "text",
         required = true,
     })
     <br>
-    @Html.TextBoxFor(m => m.RegisterForm.password, new
+    @Html.TextBoxFor(m => m.RegisterForm.Password, new
     {
         placeholder = "Password",
         type = "password",
@@ -25,7 +25,7 @@
         required = true,
     })
 
-    @Html.TextBoxFor(m => m.RegisterForm.confirmpassword, new
+    @Html.TextBoxFor(m => m.RegisterForm.Confirmpassword, new
     {
         placeholder = "Password",
         type = "password",

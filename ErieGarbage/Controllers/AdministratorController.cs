@@ -58,13 +58,13 @@ namespace ErieGarbage.Controllers
 		{
 			if (!IsValid(id)) return new HttpUnauthorizedResult();
 			var form = admin.RegisterForm;
-			if (!string.Equals(form.password, form.confirmpassword))
+			if (!string.Equals(form.Password, form.Confirmpassword))
 			{
 				form.Error = "Passwords do not match.";
 				return View(admin);
 			}
 
-			if (!admin.CreateAdmin(form.email, form.password))
+			if (!admin.CreateAdmin(form.Email, form.Password))
                 form.Error = "An admin with this username already exists";
 			
 			admin = new Administrator(id);
